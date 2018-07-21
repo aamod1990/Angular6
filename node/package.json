@@ -1,0 +1,24 @@
+{
+  "name": "crudoperation",
+  "version": "1.0.0",
+  "description": "angular6 application with node js 10.7.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aamod1990/Angular6.git"
+  },
+  "keywords": [
+    "angular6-application",
+    "crud-operation-angular6-node",
+    "node-mongodb-angular6"
+  ],
+  "author": "Aamod Tiwari",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aamod1990/Angular6/issues"
+  },
+  "homepage": "https://github.com/aamod1990/Angular6#readme"
+}
