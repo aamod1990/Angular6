@@ -1,0 +1,24 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: auto;
+}
+
+.example-container > * {
+  width: 100%;
+}
+.login_title{
+   max-width: 500px;
+   margin: auto;
+}
+.example-container button,
+.example-container a {
+  margin-right: 8px;
+}
+.pointer {
+  cursor: pointer;
+}
+.decoration{
+  text-decoration: underline;
+}
