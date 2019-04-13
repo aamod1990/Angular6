@@ -1,3 +1,138 @@
-<p>
-  registration works!
-</p>
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+	<h2 class="registration_title">Registration Form</h2>
+	<!--Parent tag of the html-->
+	<div class="example-container">
+		<!--Enter the name of the tag has started-->
+		<mat-form-field>
+			<input matInput placeholder="Enter user name*" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+			<mat-icon matSuffix>perm_identity</mat-icon>
+		</mat-form-field>
+		<div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+			<mat-error *ngIf="f.name.errors.required">Name is required</mat-error>
+			<mat-error *ngIf="f.name.errors">Name should be minimum 3 character</mat-error>
+		</div>
+		<!--Enter the name of the tag has closed-->
+
+		<!--Enter the Emails of the tag has started-->
+		<div formArrayName="regEmails">
+			<div *ngFor="let regEmail of regEmails.controls; index as idx" class="example-container">
+				<mat-form-field>
+					<input matInput placeholder="Enter user email*" [formControlName]="idx">
+					<mat-icon matSuffix>email</mat-icon>
+          <mat-icon matSuffix class="pointer" *ngIf="idx > 0" (click)="deleteEmailField(idx)">remove_circle</mat-icon>
+				</mat-form-field>
+				<div *ngIf="submitted && regEmails.at(idx).errors" class="invalid-feedback">
+          <mat-error *ngIf="regEmails.at(idx).errors.required">Email is required</mat-error>
+					<mat-error *ngIf="regEmails.at(idx).errors">Email must be a valid email address</mat-error>
+				</div>
+			</div>
+		</div>
+		<mat-icon matSuffix class="pointer" (click)="addEmailField()">add_circle_outline</mat-icon>
+		<!--Enter the Emails of the tag has closed-->
+
+		<!--Enter the phones of the tag has started -->
+		<div formArrayName="regPhones">
+			<div *ngFor="let regPhone of regPhones.controls; index as idx" class="example-container">
+				<mat-form-field>
+					<input matInput placeholder="Enter user phone*" [formControlName]="idx">
+					<mat-icon matSuffix>phone</mat-icon>
+          <mat-icon matSuffix class="pointer" *ngIf="idx > 0" (click)="deletePhoneField(idx)">remove_circle</mat-icon>
+				</mat-form-field>
+				<div *ngIf="submitted && regPhones.at(idx).errors" class="invalid-feedback">
+					<mat-error *ngIf="regPhones.at(idx).errors.required">Phone is required</mat-error>
+					<mat-error *ngIf="regPhones.at(idx).errors">Phone number should be numeric</mat-error>
+				</div>
+			</div>
+		</div>
+		<mat-icon matSuffix class="pointer" (click)="addPhoneField()">add_circle_outline</mat-icon>
+		<!--Enter the phones of the tag has closed -->
+
+		<!--Select the company name tag has started-->
+		<mat-form-field>
+			<mat-icon matSuffix>store</mat-icon>
+			<mat-select placeholder="Select company*" formControlName="company" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.company.errors }">
+				<mat-option value="Company1">Company1</mat-option>
+				<mat-option value="Company2">Company2</mat-option>
+				<mat-option value="Company3">Company3</mat-option>
+				<mat-option value="Company4">Company4</mat-option>
+			</mat-select>
+		</mat-form-field>
+		<div *ngIf="submitted && f.company.errors" class="invalid-feedback">
+			<mat-error *ngIf="f.company.errors.required">Select company name</mat-error>
+		</div>
+		<!--Select the company name tag has closed-->
+		<!--Choose the from data tag has started-->
+		<mat-form-field>
+			<input matInput [matDatepicker]="picker" placeholder="From date*" formControlName="formDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.formDate.errors }">
+			<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+			<mat-datepicker #picker></mat-datepicker>
+		</mat-form-field>
+		<div *ngIf="submitted && f.formDate.errors" class="invalid-feedback">
+			<mat-error *ngIf="f.formDate.errors.required">Choose joning date of the company</mat-error>
+		</div>
+		<!--Choose the from data tag has closed-->
+
+		<!--Choose the to  data tag has started-->
+		<mat-form-field>
+			<input matInput [matDatepicker]="picker1" placeholder="To date - Default should be till date" formControlName="toDate"
+				class="form-control">
+			<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+			<mat-datepicker #picker1></mat-datepicker>
+		</mat-form-field>
+		<!--Choose the to  data tag has closed-->
+
+		<!--Choose the dob  data tag has started-->
+		<mat-form-field>
+			<input matInput [matDatepicker]="picker2" placeholder="Date of birth*" formControlName="dob" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.dob.errors }">
+			<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+			<mat-datepicker #picker2></mat-datepicker>
+		</mat-form-field>
+		<div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+			<mat-error *ngIf="f.dob.errors.required">Choose date of birth</mat-error>
+		</div>
+		<!--Choose the dob  data tag has closed-->
+
+		<!--Selected the skils tag has started-->
+		<mat-form-field class="example-chip-list">
+			<mat-icon matSuffix>alternate_email</mat-icon>
+			<mat-chip-list #chipList>
+				<mat-chip *ngFor="let skil of Skils" [selectable]="selectable" [removable]="removable" (removed)="remove(skil)">
+					{{skil}}
+					<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+				</mat-chip>
+				<input placeholder="Choose skils*" #skilInput [formControl]="skilsCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+					[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" formControlName="skils" class="form-control"
+					[ngClass]="{ 'is-invalid': submitted && f.skils.errors }">
+			</mat-chip-list>
+			<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+				<mat-option *ngFor="let skil of filteredSkils | async" [value]="skil">
+					{{skil}}
+				</mat-option>
+			</mat-autocomplete>
+		</mat-form-field>
+		<div *ngIf="submitted && f.skils.errors" class="invalid-feedback">
+			<mat-error *ngIf="f.skils.errors.required">Choose your skils</mat-error>
+		</div>
+		<!--Selected the skils tag has closed-->
+
+		<!--Select profile Image has started-->
+		<label for="singleFile">Upload profile image</label>
+		<input id="singleFile" type="file" formControlName="profilImage" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.profilImage.errors }"
+		/>
+		<div *ngIf="submitted && f.profilImage.errors" class="invalid-feedback">
+			<mat-error *ngIf="f.profilImage.errors.required">Profil image is required</mat-error>
+		</div>
+		<!--Select profile Image has closed-->
+
+		<!--Select resume has started-->
+		<label for="resume">Upload resume</label>
+		<input id="resume" type="file" formControlName="resume" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.resume.errors }"
+		/>
+		<div *ngIf="submitted && f.resume.errors" class="invalid-feedback">
+			<mat-error *ngIf="f.resume.errors.required">Resume is required</mat-error>
+		</div>
+		<!--Select resume has closed-->
+		<button mat-raised-button color="primary">Registration</button>
+	</div>
+	<!--Parent tag of the html has closed-->
+</form>
