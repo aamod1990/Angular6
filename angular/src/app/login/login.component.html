@@ -4,22 +4,22 @@
 		<mat-form-field>
 			<input matInput placeholder="Enter your email" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
 		</mat-form-field>
-    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-				<mat-error *ngIf="f.email.errors.required">Email is required</mat-error>
-				<mat-error *ngIf="f.email.errors.email">Email must be a valid email address</mat-error>
+		<div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+			<mat-error *ngIf="f.email.errors.required">Email is required</mat-error>
+			<mat-error *ngIf="f.email.errors.email">Email must be a valid email address</mat-error>
 		</div>
 		<mat-form-field>
 			<input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" formControlName="password" class="form-control"
 				[ngClass]="{ 'is-invalid': submitted && f.password.errors }">
 			<mat-icon matSuffix (click)="hide = !hide" class="pointer">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
 		</mat-form-field>
-    <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-				<mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
-				<mat-error *ngIf="f.password.errors.minlength">Password must be at least 6 characters</mat-error>
-        <mat-error *ngIf="f.password.errors.pattern">Allow uppercase lowercase, number and special charachter</mat-error>
+		<div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+			<mat-error *ngIf="f.password.errors.required">Password is required</mat-error>
+			<mat-error *ngIf="f.password.errors.minlength">Password must be at least 6 characters</mat-error>
+			<mat-error *ngIf="f.password.errors.pattern">Allow uppercase lowercase, number and special charachter</mat-error>
 		</div>
-    <button mat-raised-button color="primary">Login</button>
-    <a (click)="forgotPassword()" class="pointer decoration" >Forgot Password</a>
-    <a href="https://www.w3schools.com">Registration</a>
+		<button mat-raised-button color="primary">Login</button>
+		<a (click)="forgotPassword()" class="pointer decoration">Forgot Password</a>
+		<a [routerLink]="['/registration']">Registration</a>
 	</div>
 </form>

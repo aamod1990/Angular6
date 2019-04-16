@@ -14,17 +14,20 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
 
 // components
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { RegistrationComponent } from './registration/registration.component';
-
+import { LoginComponent } from './login';
+import { ForgotPasswordComponent } from './forgot-password';
+import { RegistrationComponent } from './registration';
+import { HomeComponent } from './home';
+// routing
+import { routing }        from './app.routing';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ForgotPasswordComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    HomeComponent
   ],
   entryComponents: [
         ForgotPasswordComponent
@@ -47,7 +50,8 @@ import { RegistrationComponent } from './registration/registration.component';
     FormsModule,
     MatNativeDateModule,
     MatAutocompleteModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    routing
   ],
   providers: [],
   bootstrap: [AppComponent]
