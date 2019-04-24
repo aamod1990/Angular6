@@ -4,9 +4,10 @@ import { LoginComponent } from './login';
 import { ForgotPasswordComponent } from './forgot-password';
 import { RegistrationComponent } from './registration';
 import { HomeComponent } from './home';
+import { AuthGuard } from './guards';
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: '', component: HomeComponent,canActivate: [AuthGuard]},
     { path: 'login', component: LoginComponent },
     { path: 'registration', component: RegistrationComponent },
 

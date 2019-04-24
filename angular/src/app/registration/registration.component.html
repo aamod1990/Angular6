@@ -19,10 +19,10 @@
 				<mat-form-field>
 					<input matInput placeholder="Enter user email*" [formControlName]="idx">
 					<mat-icon matSuffix>email</mat-icon>
-          <mat-icon matSuffix class="pointer" *ngIf="idx > 0" (click)="deleteEmailField(idx)">remove_circle</mat-icon>
+					<mat-icon matSuffix class="pointer" *ngIf="idx > 0" (click)="deleteEmailField(idx)">remove_circle</mat-icon>
 				</mat-form-field>
 				<div *ngIf="submitted && regEmails.at(idx).errors" class="invalid-feedback">
-          <mat-error *ngIf="regEmails.at(idx).errors.required">Email is required</mat-error>
+					<mat-error *ngIf="regEmails.at(idx).errors.required">Email is required</mat-error>
 					<mat-error *ngIf="regEmails.at(idx).errors">Email must be a valid email address</mat-error>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 				<mat-form-field>
 					<input matInput placeholder="Enter user phone*" [formControlName]="idx">
 					<mat-icon matSuffix>phone</mat-icon>
-          <mat-icon matSuffix class="pointer" *ngIf="idx > 0" (click)="deletePhoneField(idx)">remove_circle</mat-icon>
+					<mat-icon matSuffix class="pointer" *ngIf="idx > 0" (click)="deletePhoneField(idx)">remove_circle</mat-icon>
 				</mat-form-field>
 				<div *ngIf="submitted && regPhones.at(idx).errors" class="invalid-feedback">
 					<mat-error *ngIf="regPhones.at(idx).errors.required">Phone is required</mat-error>
@@ -74,8 +74,7 @@
 
 		<!--Choose the to  data tag has started-->
 		<mat-form-field>
-			<input matInput [matDatepicker]="picker1" placeholder="To date - Default should be till date" formControlName="toDate"
-				class="form-control">
+			<input matInput [matDatepicker]="picker1" placeholder="To date - Default should be till date" formControlName="toDate" class="form-control">
 			<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
 			<mat-datepicker #picker1></mat-datepicker>
 		</mat-form-field>
@@ -100,9 +99,9 @@
 					{{skil}}
 					<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
 				</mat-chip>
-				<input placeholder="Choose skils*" #skilInput [formControl]="skilsCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-					[matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" formControlName="skils" class="form-control"
-					[ngClass]="{ 'is-invalid': submitted && f.skils.errors }">
+				<input placeholder="Choose skils*" #skilInput [formControl]="skilsCtrl" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+					[matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)"
+					formControlName="skils" class="form-control" [ngClass]="{ 'is-invalid': isSkils}">
 			</mat-chip-list>
 			<mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
 				<mat-option *ngFor="let skil of filteredSkils | async" [value]="skil">
@@ -110,30 +109,28 @@
 				</mat-option>
 			</mat-autocomplete>
 		</mat-form-field>
-		<div *ngIf="submitted && f.skils.errors" class="invalid-feedback">
-			<mat-error *ngIf="f.skils.errors.required">Choose your skils</mat-error>
+		<div *ngIf="isSkils" class="invalid-feedback">
+			<mat-error *ngIf="isSkils">Choose your skils</mat-error>
 		</div>
 		<!--Selected the skils tag has closed-->
 
 		<!--Select profile Image has started-->
-		<label for="singleFile">Upload profile image</label>
-		<input id="singleFile" type="file" formControlName="profilImage" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.profilImage.errors }"
-		/>
-		<div *ngIf="submitted && f.profilImage.errors" class="invalid-feedback">
-			<mat-error *ngIf="f.profilImage.errors.required">Profil image is required</mat-error>
+		<label for="profilImage">Upload profile image</label>
+		<input type="file" id="profilImage" (change)="onFileChange($event,'profilImage')" #fileInput class="form-control" [ngClass]="{ 'is-invalid': isProfile}">
+		<div *ngIf="isProfile" class="invalid-feedback">
+			<mat-error *ngIf="isProfile">Profile image is required</mat-error>
 		</div>
 		<!--Select profile Image has closed-->
 
 		<!--Select resume has started-->
 		<label for="resume">Upload resume</label>
-		<input id="resume" type="file" formControlName="resume" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.resume.errors }"
-		/>
-		<div *ngIf="submitted && f.resume.errors" class="invalid-feedback">
-			<mat-error *ngIf="f.resume.errors.required">Resume is required</mat-error>
+		<input type="file" id="resume" (change)="onFileChange($event,'resume')" #fileInput class="form-control" [ngClass]="{ 'is-invalid': isResume}">
+		<div *ngIf="isResume" class="invalid-feedback">
+			<mat-error *ngIf="isResume">Resume is required</mat-error>
 		</div>
 		<!--Select resume has closed-->
 		<button mat-raised-button color="primary">Registration</button>
-    <a [routerLink]="['/login']">Login</a>
+		<a [routerLink]="['/login']">Login</a>
 	</div>
 	<!--Parent tag of the html has closed-->
 </form>
